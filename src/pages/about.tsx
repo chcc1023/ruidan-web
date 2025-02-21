@@ -59,7 +59,6 @@ export default function About() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [isClient, setIsClient] = useState(false);
   
@@ -260,20 +259,21 @@ export default function About() {
     }
   };
 
-  const openModal = (title: string) => {
-    setModalTitle(title);
-    setIsContactModalOpen(true);
-  };
-
   // 使用固定的位置数据
   const particlePositions = generateFixedPositions(6);
   const linePositions = generateFixedLines(8);
+
+  // 添加打开模态框的函数
+  const openModal = (title: string) => {
+    setModalTitle(title);
+    setIsModalOpen(true);
+  };
 
   return (
     <div className={`${geist.variable} min-h-screen`}>
       <div className="w-full overflow-x-hidden">
         {/* 导航栏 */}
-        <nav className="flex justify-between items-center px-8 h-16 border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+        <nav className="flex justify-between items-center px-4 h-16 border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50 w-full">
           {/* 左侧 Logo */}
           <div className="flex items-center">
             <Image
@@ -287,7 +287,7 @@ export default function About() {
           </div>
           
           {/* 右侧菜单和按钮 */}
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-4 md:gap-6">
             <div className="flex items-center gap-6">
               <a href="/" className="text-gray-600 text-sm hover:text-blue-600 transition-colors">首页</a>
               <a href="/about" className="text-gray-900 text-sm hover:text-blue-600 transition-colors">关于我们</a>
@@ -552,7 +552,7 @@ export default function About() {
         </section>
 
         {/* 公司动态部分 - 新设计 */}
-        <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white w-full">
+        <section className="hidden py-16 px-4 bg-gradient-to-br from-gray-50 to-white w-full">
           <div className="max-w-7xl mx-auto">
             {/* 标题区域 */}
             <div className="text-center mb-12">
@@ -712,10 +712,10 @@ export default function About() {
           </div>
         )}
 
-        {/* 联系表单模态框 */}
+        {/* 添加联系表单模态框 */}
         <ContactFormModal
-          isOpen={isContactModalOpen}
-          onClose={() => setIsContactModalOpen(false)}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
           title={modalTitle}
         />
       </div>

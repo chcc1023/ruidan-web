@@ -13,7 +13,7 @@ export default function ContactFormModal({ isOpen, onClose, title }: ContactForm
     name: '',
     phone: '',
     projectName: '',
-    referralCode: ''
+    referralCode: ''  // 新增推荐码字段
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -37,6 +37,7 @@ export default function ContactFormModal({ isOpen, onClose, title }: ContactForm
       setError('请输入项目名称');
       return;
     }
+    // 推荐码为可选字段，不需要验证
 
     setIsSubmitting(true);
     try {
@@ -93,7 +94,7 @@ export default function ContactFormModal({ isOpen, onClose, title }: ContactForm
                 }} />
               </div>
               <div className="relative h-full p-12 flex flex-col justify-center text-white">
-                <h3 className="text-3xl font-bold mb-6">智能物业管理的未来</h3>
+                <h3 className="text-3xl font-bold mb-6">让物业管理更智能高效</h3>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
@@ -101,7 +102,7 @@ export default function ContactFormModal({ isOpen, onClose, title }: ContactForm
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                       </svg>
                     </div>
-                    <span>AI驱动的智能识别</span>
+                    <span>AI缺陷识别</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
@@ -109,7 +110,7 @@ export default function ContactFormModal({ isOpen, onClose, title }: ContactForm
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
                       </svg>
                     </div>
-                    <span>高效的工单管理</span>
+                    <span>智能工单调度</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
@@ -117,7 +118,7 @@ export default function ContactFormModal({ isOpen, onClose, title }: ContactForm
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
                     </div>
-                    <span>数据驱动决策</span>
+                    <span>数字化运营</span>
                   </div>
                 </div>
               </div>
@@ -138,7 +139,7 @@ export default function ContactFormModal({ isOpen, onClose, title }: ContactForm
               {/* 标题 */}
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-gray-900">{title}</h3>
-                <p className="text-gray-600 mt-2">请填写以下信息，我们将尽快与您联系</p>
+                <p className="text-gray-600 mt-2">请留下您的联系方式，我们将尽快与您取得联系</p>
               </div>
 
               {/* 表单 */}
@@ -195,7 +196,7 @@ export default function ContactFormModal({ isOpen, onClose, title }: ContactForm
                     value={formData.referralCode}
                     onChange={(e) => setFormData(prev => ({ ...prev, referralCode: e.target.value }))}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                    placeholder="如有推荐代码请填写"
+                    placeholder="请输入推荐代码"
                   />
                 </div>
 
@@ -208,7 +209,7 @@ export default function ContactFormModal({ isOpen, onClose, title }: ContactForm
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span>提交成功！我们的工作人员将尽快与您联系</span>
+                    <span>提交成功！我们的顾问将尽快与您联系</span>
                   </div>
                 )}
 

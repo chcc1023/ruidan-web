@@ -15,34 +15,47 @@ export default function Home() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // 自动切换效果
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev === 0 ? 1 : 0));
+    }, 5000); // 每5秒切换一次
+    
+    return () => clearInterval(timer);
+  }, []);
+
+  // 监听滚动事件，控制返回顶部按钮的显示和隐藏
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // 返回顶部
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   const openModal = (title: string) => {
     setModalTitle(title);
     setIsModalOpen(true);
   };
 
-  const scrollToSolutions = () => {
-    const solutionsSection = document.getElementById('solutions');
-    if (solutionsSection) {
-      solutionsSection.scrollIntoView({ behavior: 'smooth' });
+  // 添加平滑滚动到指定区域的函数
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  // 监听滚动事件
-  useEffect(() => {
-    const handleScroll = () => {
-      // 当页面滚动超过500px时显示置顶按钮
-      setShowScrollTop(window.scrollY > 500);
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-  
-  // 滚动到顶部
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -51,12 +64,12 @@ export default function Home() {
       <nav className="flex justify-between items-center px-8 h-16 border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         {/* 左侧 Logo */}
         <div className="flex items-center">
-          <Image
+        <Image
             src="/virgin.png"
             alt="VIRGIN DIGITAL LEADER"
             width={200}
             height={28}
-            priority
+          priority
             className="h-7 w-auto"
           />
         </div>
@@ -99,45 +112,143 @@ export default function Home() {
               </span>
             </div>
 
-            {/* 主标题 */}
-            <h1 className="relative">
-              <div className="text-4xl font-bold mb-3 opacity-80">利用AI技术</div>
-              <div className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent mb-6">
-                全面评估建筑设施缺陷
+            {/* 主标题和描述文字 */}
+            <h1 className="relative h-32"> {/* 增加固定高度 */}
+              <div className={`absolute w-full transition-all duration-1000 ${
+                currentSlide === 0 
+                  ? 'opacity-100 transform translate-y-0' 
+                  : 'opacity-0 transform translate-y-8'
+              }`}>
+                <div className="text-4xl font-bold mb-3 opacity-80">利用AI技术</div>
+                <div className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent mb-6">
+                  全面评估建筑设施缺陷
+                </div>
+              </div>
+              <div className={`absolute w-full transition-all duration-1000 ${
+                currentSlide === 1 
+                  ? 'opacity-100 transform translate-y-0' 
+                  : 'opacity-0 transform translate-y-8'
+              }`}>
+                <div className="text-4xl font-bold mb-3 opacity-80">智能工单调度引擎</div>
+                <div className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent mb-6">
+                  让物业服务更智能高效
+                </div>
               </div>
               {/* 装饰线条 */}
               <div className="absolute left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full blur-sm" />
             </h1>
 
             {/* 描述文字 */}
-            <p className="text-gray-600 max-w-2xl mx-auto mt-8 leading-relaxed text-lg">
-              我们的专家团队利用先进的人工智能技术，为物业管理带来革命性变革，
-              <br />
-              <span className="text-blue-600 font-semibold">全面的缺陷数据</span>
-              成为评估及改进服务的得力助手。
-            </p>
+            <div className="relative h-24">
+              <div className="absolute w-full transition-all duration-1000">
+                {[
+                  {
+                    id: 'defect',
+                    content: (
+                      <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed text-lg">
+                        我们的专家团队利用先进的人工智能技术，为物业管理带来革命性变革，
+                        <br />
+                        <span className="text-blue-600 font-semibold">全面的缺陷数据</span>成为评估及改进服务的得力助手。
+                      </p>
+                    )
+                  },
+                  {
+                    id: 'workorder',
+                    content: (
+                      <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed text-lg">
+                        基于深度学习的智能工单调度引擎，通过
+                        <span className="text-blue-600 font-semibold">大数据分析和AI算法</span>
+                        ，实现工单智能分配、实时监控和质量评估，让物业服务更高效、更智能。
+                      </p>
+                    )
+                  }
+                ].map((item, index) => (
+                  <div
+                    key={item.id}
+                    className={`absolute top-0 left-0 w-full transition-all duration-1000 ${
+                      currentSlide === index 
+                        ? 'opacity-100 transform translate-y-0' 
+                        : 'opacity-0 transform translate-y-8'
+                    }`}
+                  >
+                    {item.content}
+                  </div>
+                ))}
+              </div>
+            </div>
 
-            {/* 按钮组 - 添加更多科技感的样式 */}
-            <div className="flex justify-center gap-6 mt-12">
-              <button 
-                onClick={scrollToSolutions}
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl flex items-center gap-2 overflow-hidden transition-all hover:shadow-lg hover:shadow-blue-500/30"
-              >
-                <span className="relative z-10">探索AI解决方案</span>
-                <svg className="w-5 h-5 relative z-10 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-              </button>
-              <button 
-                onClick={() => openModal('立即咨询')}
-                className="group px-8 py-4 border border-gray-200 hover:border-blue-200 rounded-xl flex items-center gap-2 transition-all hover:shadow-lg"
-              >
-                立即咨询
-                <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </button>
+            {/* 切换指示器 */}
+            <div className="flex justify-center gap-2 mt-4">
+              {[0, 1].map((index) => (
+                <button
+                  key={index}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    currentSlide === index 
+                      ? 'bg-blue-600 w-6' 
+                      : 'bg-gray-300'
+                  }`}
+                  onClick={() => setCurrentSlide(index)}
+                />
+              ))}
+            </div>
+
+            {/* 按钮组 - 添加切换效果 */}
+            <div className="relative h-24 mt-12"> {/* 增加固定高度容器 */}
+              <div className={`absolute w-full transition-all duration-1000 ${
+                currentSlide === 0 
+                  ? 'opacity-100 transform translate-y-0' 
+                  : 'opacity-0 transform translate-y-8'
+              }`}>
+                <div className="flex justify-center gap-6">
+                  <button 
+                    onClick={() => scrollToSection('ai-platform')}
+                    className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl flex items-center gap-2 overflow-hidden transition-all hover:shadow-lg hover:shadow-blue-500/30"
+                  >
+                    <span className="relative z-10">探索AI缺陷识别</span>
+                    <svg className="w-5 h-5 relative z-10 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </button>
+                  <button 
+                    onClick={() => openModal('立即咨询')}
+                    className="group px-8 py-4 border border-gray-200 hover:border-blue-200 rounded-xl flex items-center gap-2 transition-all hover:shadow-lg"
+                  >
+                    立即咨询
+                    <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div className={`absolute w-full transition-all duration-1000 ${
+                currentSlide === 1 
+                  ? 'opacity-100 transform translate-y-0' 
+                  : 'opacity-0 transform translate-y-8'
+              }`}>
+                <div className="flex justify-center gap-6">
+                  <button 
+                    onClick={() => scrollToSection('workorder-solution')}
+                    className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl flex items-center gap-2 overflow-hidden transition-all hover:shadow-lg hover:shadow-blue-500/30"
+                  >
+                    <span className="relative z-10">探索智能工单</span>
+                    <svg className="w-5 h-5 relative z-10 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </button>
+                  <button 
+                    onClick={() => openModal('立即咨询')}
+                    className="group px-8 py-4 border border-gray-200 hover:border-blue-200 rounded-xl flex items-center gap-2 transition-all hover:shadow-lg"
+                  >
+                    立即咨询
+                    <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -236,7 +347,7 @@ export default function Home() {
         </section>
 
         {/* 睿单解决方案 */}
-        <section id="solutions" className="w-full bg-gradient-to-b from-gray-100 via-white to-gray-50 py-20">
+        <section id="solutions" className="w-full bg-gradient-to-b from-gray-100 via-white to-gray-50 py-20 scroll-mt-16">
           {/* 背景装饰 */}
           <div className="absolute inset-0 -z-10 overflow-hidden">
             <div className="absolute top-0 left-1/4 w-[800px] h-[600px] bg-gradient-to-br from-blue-50 to-purple-50 rounded-full opacity-40 blur-3xl" />
@@ -250,7 +361,7 @@ export default function Home() {
           </div>
 
           {/* AI驱动的物业管理数字化平台 */}
-          <div className="mb-32">
+          <div id="ai-platform" className="mb-32 scroll-mt-16">
             <div className="text-center mb-12">
               <p className="text-gray-600 mb-6">探索我们如何通过AI技术为各种项目提供创新解决方案</p>
               <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -531,45 +642,46 @@ export default function Home() {
           </div>
 
           {/* 智能工单调度引擎解决方案 */}
-          <div className="mt-32 relative">
+          <div id="workorder-solution" className="scroll-mt-16 mt-32 relative bg-gradient-to-b from-gray-50 to-white py-20">
             {/* 背景装饰 */}
             <div className="absolute inset-0 -z-10">
-              <div className="absolute w-full h-[800px] bg-gradient-to-b from-cyan-50/30 via-blue-50/30 to-transparent" />
-              <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[120px]" />
-              <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px]" />
+              <div className="absolute w-full h-[800px] bg-gradient-to-b from-blue-50/50 via-white to-transparent" />
+              <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100/20 rounded-full blur-[100px]" />
+              <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-100/20 rounded-full blur-[80px]" />
             </div>
 
             {/* 标题和产品介绍 */}
-            <div className="max-w-4xl mx-auto text-center mb-20">
+            <div className="max-w-6xl mx-auto text-center mb-20">
               <div className="flex items-center justify-center gap-4 mb-8">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center shadow-lg">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                   </svg>
                 </div>
-                <h2 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
+                <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">
                   智能工单调度引擎
                 </h2>
               </div>
-              <p className="text-gray-600 text-lg mb-16">
+              <p className="text-gray-600 text-lg mb-16 max-w-3xl mx-auto">
                 通过高单平台，体验从缺陷、工单、质检的全数字化运营管理流程
               </p>
 
               {/* 主要特点 */}
-              <div className="grid grid-cols-2 gap-8">
+              <div className="grid grid-cols-2 gap-8 mt-16">
                 {[
                   "根据空间、损耗及缺陷数据由人工智能自动化生成精准作业指令",
                   "覆盖工单生成、调度、执行、质检全流程，由人工智能根据图片进行自动质检",
                   "根据财务和运营数据自动优化，全面数据分析报告",
                   "员工有效工时提升100%+（以保洁为例），作业对象覆盖率提升200%+"
                 ].map((feature, index) => (
-                  <div key={index} className="flex items-start gap-4 p-6 bg-white/60 backdrop-blur-sm rounded-xl border border-cyan-100/20 shadow-sm">
-                    <div className="w-8 h-8 rounded-full bg-cyan-50 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div key={index} className="flex items-start gap-4 p-6 bg-white rounded-xl border border-gray-100 shadow-sm
+                    hover:shadow-lg hover:border-blue-100 transition-all duration-300 group">
+                    <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <span className="text-gray-600">{feature}</span>
+                    <span className="text-gray-600 group-hover:text-gray-900 transition-colors">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -1099,28 +1211,38 @@ export default function Home() {
             <p>
               <a 
                 href="https://beian.miit.gov.cn/" 
-          target="_blank"
-          rel="noopener noreferrer"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-white/80 transition-colors"
               >
-                粤ICP备18017068号
+                粤ICP备18017068号-4
               </a>
             </p>
           </div>
         </div>
       </footer>
 
-      {/* 置顶按钮 */}
+      {/* 返回顶部按钮 */}
       <button
         onClick={scrollToTop}
-        className={`fixed right-8 bottom-8 w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-500 
-          text-white rounded-full shadow-lg shadow-blue-500/20 flex items-center justify-center 
-          transition-all duration-300 hover:shadow-blue-500/30 hover:scale-105 z-50
-          ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+        className={`fixed right-8 bottom-8 z-50 p-3 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg 
+          transform transition-all duration-300 hover:shadow-blue-500/25 hover:scale-110 group
+          ${showScrollTop ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0 pointer-events-none'}`}
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        <svg 
+          className="w-6 h-6 transform transition-transform duration-300 group-hover:translate-y-[-2px]" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth={2} 
+            d="M5 10l7-7m0 0l7 7m-7-7v18" 
+          />
         </svg>
+        <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
       </button>
     </div>
   );

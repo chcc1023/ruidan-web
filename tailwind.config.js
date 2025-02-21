@@ -13,22 +13,11 @@ module.exports = {
       },
       animation: {
         'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'fadeInOut': 'fadeInOut 10s infinite',
-        'fadeInOutDelay': 'fadeInOutDelay 10s infinite',
       },
       keyframes: {
         pulse: {
           '0%, 100%': { opacity: '0.2' },
           '50%': { opacity: '0.15' },
-        },
-        fadeInOut: {
-          '0%, 45%, 100%': { opacity: '1' },
-          '50%, 95%': { opacity: '0' },
-        },
-        fadeInOutDelay: {
-          '0%, 45%': { opacity: '0' },
-          '50%, 95%': { opacity: '1' },
-          '100%': { opacity: '0' },
         },
       },
     },
