@@ -1,13 +1,8 @@
-import { Geist } from "next/font/google";
-import Image from "next/image";
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
+import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import ContactFormModal from '../components/ContactFormModal';
-
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist",
-});
+import Link from 'next/link';
 
 // 在文件顶部添加类型定义
 type NewsItem = {
@@ -18,28 +13,6 @@ type NewsItem = {
   image: string;
   content: string;
   summary?: string;
-};
-
-// 在组件外部创建一个函数来生成固定的随机位置
-const generateFixedPositions = (count: number) => {
-  return Array.from({ length: count }, (_, index) => ({
-    id: index,
-    top: `${15 + (index * 10)}%`,
-    left: `${10 + (index * 15)}%`,
-    delay: 2 + (index * 0.5)
-  }));
-};
-
-// 在组件外部创建一个函数来生成固定的连接线
-const generateFixedLines = (count: number) => {
-  return Array.from({ length: count }, (_, index) => ({
-    id: index,
-    width: 150 + (index * 10),
-    top: `${10 + (index * 10)}%`,
-    left: `${5 + (index * 10)}%`,
-    rotate: index * 45,
-    duration: 4 + (index * 0.5)
-  }));
 };
 
 // 动态导入并完全禁用 SSR
@@ -60,11 +33,6 @@ export default function About() {
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
-  const [isClient, setIsClient] = useState(false);
-  
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   // 滚动到指定年份的内容
   const scrollToYear = (year: string) => {
@@ -259,10 +227,6 @@ export default function About() {
     }
   };
 
-  // 使用固定的位置数据
-  const particlePositions = generateFixedPositions(6);
-  const linePositions = generateFixedLines(8);
-
   // 添加打开模态框的函数
   const openModal = (title: string) => {
     setModalTitle(title);
@@ -270,7 +234,7 @@ export default function About() {
   };
 
   return (
-    <div className={`${geist.variable} min-h-screen`}>
+    <div className="min-h-screen">
       <div className="w-full overflow-x-hidden">
         {/* 导航栏 */}
         <nav className="flex justify-between items-center px-4 h-16 border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50 w-full">
@@ -289,8 +253,8 @@ export default function About() {
           {/* 右侧菜单和按钮 */}
           <div className="flex items-center gap-4 md:gap-6">
             <div className="flex items-center gap-6">
-              <a href="/" className="text-gray-600 text-sm hover:text-blue-600 transition-colors">首页</a>
-              <a href="/about" className="text-gray-900 text-sm hover:text-blue-600 transition-colors">关于我们</a>
+              <Link href="/" className="text-gray-600 text-sm hover:text-blue-600 transition-colors">首页</Link>
+              <Link href="/about" className="text-gray-900 text-sm hover:text-blue-600 transition-colors">关于我们</Link>
             </div>
             <div className="flex items-center gap-3">
               <button className="px-4 py-1.5 text-sm text-gray-600 hover:text-blue-600 transition-colors">
@@ -614,12 +578,14 @@ export default function About() {
                       className="cursor-pointer flex-none w-full md:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] group/card"
                       onClick={() => openNewsDetail(news.id)}
                     >
-                      <div className="relative aspect-[16/9] rounded-2xl overflow-hidden transition-all duration-500 group-hover/card:shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                      <div className="relative aspect-[16/9] rounded-2xl overflow-hidden">
                         <Image
                           src={news.image}
                           alt={news.title}
-                          fill
-                          className="object-cover transition-all duration-500 scale-100 group-hover/card:scale-110"
+                          width={1920}
+                          height={1080}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover w-full h-full absolute inset-0 transition-all duration-500 scale-100 group-hover/card:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-100 transition-opacity duration-500 group-hover/card:opacity-60" />
                         <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -667,12 +633,14 @@ export default function About() {
                 </button>
 
                 {/* 头部图片 */}
-                <div className="relative h-[300px]">
+                <div className="relative h-[300px] w-full">
                   <Image
                     src={selectedNews.image}
                     alt={selectedNews.title}
-                    fill
-                    className="object-cover"
+                    width={1920}
+                    height={1080}
+                    sizes="100vw"
+                    className="object-cover w-full h-full absolute inset-0"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-8">

@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 
 interface ContactFormModalProps {
@@ -41,17 +39,30 @@ export default function ContactFormModal({ isOpen, onClose, title }: ContactForm
 
     setIsSubmitting(true);
     try {
-      // TODO: 这里添加实际的表单提交逻辑
-      await new Promise(resolve => setTimeout(resolve, 1000)); // 模拟API请求
+      const response = await fetch('https://www.ai2049.com/api/admin/sysUccnInfo/addUccnInfo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nickName: formData.name,
+          phone: formData.phone,
+          leaveWord: formData.projectName, // 使用项目名称作为留言内容
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('提交失败');
+      }
+
       setShowSuccess(true);
-      // 2秒后关闭弹窗
       setTimeout(() => {
         onClose();
-        // 重置表单
         setFormData({ name: '', phone: '', projectName: '', referralCode: '' });
         setShowSuccess(false);
       }, 2000);
     } catch (err) {
+      console.error('提交失败', err);
       setError('提交失败，请稍后重试');
     } finally {
       setIsSubmitting(false);

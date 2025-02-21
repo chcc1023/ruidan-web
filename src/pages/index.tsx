@@ -1,15 +1,10 @@
-import { Geist } from "next/font/google";
-import Image from "next/image";
+import { useEffect, useState } from 'react';
+import Image from 'next/image';  // Change this line
 import { FadeInSection } from '@/components/FadeInSection';
 import { FadeInStagger } from '@/components/FadeInStagger';
-import { useState, useEffect } from 'react';
 import { ImageViewer } from '@/components/ImageViewer';
 import ContactFormModal from '../components/ContactFormModal';
-
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist",
-});
+import Link from 'next/link';
 
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -59,7 +54,7 @@ export default function Home() {
   };
 
   return (
-    <div className={`${geist.variable} min-h-screen`}>
+    <div className="min-h-screen">
       {/* 导航栏 */}
       <nav className="flex justify-between items-center px-8 h-16 border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         {/* 左侧 Logo */}
@@ -77,13 +72,18 @@ export default function Home() {
         {/* 右侧菜单和按钮 */}
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-6">
-            <a href="/" className="text-gray-900 text-sm hover:text-blue-600 transition-colors">首页</a>
-            <a href="/about" className="text-gray-600 text-sm hover:text-blue-600 transition-colors">关于我们</a>
+            <Link href="/" className="text-gray-900 text-sm hover:text-blue-600 transition-colors">首页</Link>
+            <Link href="/about" className="text-gray-600 text-sm hover:text-blue-600 transition-colors">关于我们</Link>
           </div>
           <div className="flex items-center gap-3">
-            <button className="px-4 py-1.5 text-sm text-gray-600 hover:text-blue-600 transition-colors">
+          <a 
+              href="https://www.ai2049.com/#/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-1.5 text-sm text-gray-600 hover:text-blue-600 transition-colors"
+            >
               登录
-            </button>
+            </a>
             <button 
               onClick={() => openModal('立即咨询')}
               className="px-4 py-1.5 text-sm bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"

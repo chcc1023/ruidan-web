@@ -1,26 +1,24 @@
 import { useInView } from '@/hooks/useInView';
+import { useRef } from 'react';
 
 interface FadeInStaggerProps {
   children: React.ReactNode;
-  className?: string;
-  delay?: number;
   index?: number;
+  className?: string;
 }
 
-export function FadeInStagger({ children, className = '', delay = 0.2, index = 0 }: FadeInStaggerProps) {
-  const [ref, isInView] = useInView();
+export function FadeInStagger({ children, index = 0, className = '' }: FadeInStaggerProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref);
 
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ${
+      className={`transition-all duration-700 delay-[${index * 100}ms] ${
         isInView
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-10'
       } ${className}`}
-      style={{
-        transitionDelay: `${index * delay}s`
-      }}
     >
       {children}
     </div>
