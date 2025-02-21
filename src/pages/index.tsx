@@ -1063,7 +1063,7 @@ export default function Home() {
               {
                 title: "智能工单洞察引擎",
                 forUsers: "物业公司，业主（自管）",
-                price: "20,000元/项目/年",
+                price: "50,000元/项目/年",
                 canPurchaseAlone: "是",
                 features: [
                   "精准作业，降本增效",
@@ -1124,7 +1124,7 @@ export default function Home() {
                       <div className="text-sm text-gray-600 group-hover:text-blue-100 mb-4">
                         适用于：{plan.forUsers}
                       </div>
-                      <div className="text-3xl font-bold text-blue-600 group-hover:text-white">
+                      <div className="text-sm font-bold text-blue-600 group-hover:text-white">
                         {plan.price}
                       </div>
                       {plan.priceNote && (
@@ -1212,8 +1212,8 @@ export default function Home() {
             <p>
               <a 
                 href="https://beian.miit.gov.cn/" 
-                target="_blank"
-                rel="noopener noreferrer"
+          target="_blank"
+          rel="noopener noreferrer"
                 className="hover:text-white/80 transition-colors"
               >
                 粤ICP备18017068号-4
