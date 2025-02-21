@@ -1061,7 +1061,7 @@ export default function Home() {
                 ]
               },
               {
-                title: "智能工单洞察引擎",
+                title: "智能工单调度引擎",
                 forUsers: "物业公司，业主（自管）",
                 price: "50,000元/项目/年",
                 canPurchaseAlone: "是",
@@ -1092,7 +1092,7 @@ export default function Home() {
                   "缺陷、工单、设施设备在Web GIS上的可视化查询",
                   "时间变化趋势分析"
                 ],
-                priceDetails: ["与智能工单洞察引擎同期提供数据云计算服务"]
+                priceDetails: ["与智能工单调度引擎同期提供数据云计算服务"]
               },
               {
                 title: "顾问服务",

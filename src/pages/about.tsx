@@ -120,8 +120,8 @@ export default function About() {
       year: "2020",
       events: [
         { month: "08", content: "获取ISO27001信息安全管理体系认证证书认定", isHighlight: true },
-        { month: "04", content: "物联网业务中台-智能工单洞察引擎产品获得深圳市软件产品认定" },
-        { month: "01", content: "物联网业务中台-智能工单洞察引擎工单数据上链" }
+        { month: "04", content: "物联网业务中台-智能工单调度引擎产品获得深圳市软件产品认定" },
+        { month: "01", content: "物联网业务中台-智能工单调度引擎工单数据上链" }
       ]
     },
     {
