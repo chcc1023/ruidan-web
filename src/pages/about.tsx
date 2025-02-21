@@ -719,6 +719,23 @@ export default function About() {
           title={modalTitle}
         />
       </div>
+
+      {/* 页脚 */}
+      <footer className="bg-gradient-to-b from-indigo-900 to-blue-900 text-white/80 py-20">
+        <div className="max-w-6xl mx-auto px-4">
+          {/* 联系我们 */}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">联系我们</h2>
+            <h3 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              让我们一起探讨合作
+            </h3>
+            <div className="space-y-4 text-white/60">
+              <p>周一至周五，上午9:00至下午6:00</p>
+              <p>我们的团队随时准备为您解答问题。</p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 } 

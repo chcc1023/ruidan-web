@@ -1190,9 +1190,9 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4">
           {/* 联系我们 */}
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">欢迎联系</h2>
+            <h2 className="text-3xl font-bold mb-4">联系我们</h2>
             <h3 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              有合作意向？
+              让我们一起探讨合作
             </h3>
             <div className="space-y-4 text-white/60">
               <p>周一至周五，上午9:00至下午6:00</p>
