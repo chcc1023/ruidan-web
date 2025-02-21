@@ -131,7 +131,7 @@ export default function Home() {
               }`}>
                 <div className="text-4xl font-bold mb-3 opacity-80">智能工单调度引擎</div>
                 <div className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent mb-6">
-                  让物业服务更智能高效
+                让物业作业更精准更高效
                 </div>
               </div>
               {/* 装饰线条 */}
@@ -156,9 +156,10 @@ export default function Home() {
                     id: 'workorder',
                     content: (
                       <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed text-lg">
-                        基于深度学习的智能工单调度引擎，通过
-                        <span className="text-blue-600 font-semibold">大数据分析和AI算法</span>
-                        ，实现工单智能分配、实时监控和质量评估，让物业服务更高效、更智能。
+                        实现工单的自动生成、实时监控和质量管理，<br />
+                        
+                        <span className="text-blue-600 font-semibold">并根据缺陷数据自动优化</span>
+                       
                       </p>
                     )
                   }
