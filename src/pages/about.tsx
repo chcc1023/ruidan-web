@@ -61,10 +61,29 @@ export default function About() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [isClient, setIsClient] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  // 监听滚动事件，控制返回顶部按钮的显示和隐藏
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // 返回顶部
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   // 滚动到指定年份的内容
   const scrollToYear = (year: string) => {
@@ -293,9 +312,14 @@ export default function About() {
               <a href="/about" className="text-gray-900 text-sm hover:text-blue-600 transition-colors">关于我们</a>
             </div>
             <div className="flex items-center gap-3">
-              <button className="px-4 py-1.5 text-sm text-gray-600 hover:text-blue-600 transition-colors">
+              <a 
+                href="https://www.ai2049.com/#/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-1.5 text-sm text-gray-600 hover:text-blue-600 transition-colors"
+              >
                 登录
-              </button>
+              </a>
               <button 
                 onClick={() => openModal('立即咨询')}
                 className="px-4 py-1.5 text-sm bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
@@ -733,9 +757,37 @@ export default function About() {
               <p>周一至周五，上午9:00至下午6:00</p>
               <p>我们的团队随时准备为您解答问题。</p>
             </div>
+            <div className="mt-8 space-y-3">
+              <p>发送消息给我们</p>
+              <p className="text-xl font-medium text-blue-400">support@virgindatax.com</p>
+              <p>微信搜索【睿单】公众号</p>
+            </div>
           </div>
         </div>
       </footer>
+
+      {/* 返回顶部按钮 */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed right-8 bottom-8 z-50 p-3 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg 
+          transform transition-all duration-300 hover:shadow-blue-500/25 hover:scale-110 group
+          ${showScrollTop ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0 pointer-events-none'}`}
+      >
+        <svg 
+          className="w-6 h-6 transform transition-transform duration-300 group-hover:translate-y-[-2px]" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth={2} 
+            d="M5 10l7-7m0 0l7 7m-7-7v18" 
+          />
+        </svg>
+        <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+      </button>
     </div>
   );
 } 

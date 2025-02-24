@@ -22,7 +22,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev === 0 ? 1 : 0));
-    }, 8000); // 每5秒切换一次
+    }, 10000); // 每10秒切换一次
     
     return () => clearInterval(timer);
   }, []);
@@ -64,12 +64,12 @@ export default function Home() {
       <nav className="flex flex-wrap justify-between items-center px-4 py-3 md:py-0 md:h-16 border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         {/* Logo */}
         <div className="flex items-center">
-          <Image
+        <Image
             src="/virgin.png"
             alt="VIRGIN DIGITAL LEADER"
             width={160}
             height={28}
-            priority
+          priority
             className="h-6 md:h-7 w-auto"
           />
         </div>
@@ -81,9 +81,14 @@ export default function Home() {
             <a href="/about" className="text-gray-600 text-sm hover:text-blue-600 transition-colors">关于我们</a>
           </div>
           <div className="flex items-center gap-3">
-            <button className="px-4 py-1.5 text-sm text-gray-600 hover:text-blue-600 transition-colors">
+            <a 
+              href="https://www.ai2049.com/#/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-1.5 text-sm text-gray-600 hover:text-blue-600 transition-colors"
+            >
               登录
-            </button>
+            </a>
             <button 
               onClick={() => openModal('立即咨询')}
               className="px-4 py-1.5 text-sm bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
@@ -97,27 +102,68 @@ export default function Home() {
       {/* 主要内容区 */}
       <main>
         {/* 标题区域 */}
-        <div className="max-w-6xl mx-auto px-4 text-center mb-8 md:mb-16 relative pt-8 md:pt-16">
-          <div className="relative">
-            <h1 className="text-2xl md:text-4xl font-bold mb-3 opacity-80">智能物业管理的革新者</h1>
-            <div className="relative">
-              <div className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent mb-4 md:mb-6">
-                利用AI技术
-              </div>
-              <div className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
-                全面评估建筑设施缺陷
-              </div>
-            </div>
+        <section className="w-full relative py-20 overflow-hidden">
+          {/* 科技感背景装饰 */}
+          <div className="absolute inset-0 -z-10">
+            {/* 主要背景渐变 */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-50" />
+            
+            {/* 3D装饰元素 */}
+            <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-blue-100/30 rounded-full blur-[100px] animate-pulse" />
+            <div className="absolute top-40 right-1/4 w-[400px] h-[400px] bg-cyan-100/30 rounded-full blur-[80px] animate-pulse" />
+            <div className="absolute bottom-0 left-1/3 w-[300px] h-[300px] bg-purple-100/20 rounded-full blur-[60px]" />
+            
+            {/* 网格效果 */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.2)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.2)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,black,transparent)]" />
+            
+            {/* 光晕效果 */}
+            <div className="absolute top-1/4 right-1/4 w-24 h-24 bg-blue-200/30 rounded-full blur-xl" />
+            <div className="absolute bottom-1/3 left-1/3 w-32 h-32 bg-cyan-200/30 rounded-full blur-xl" />
           </div>
 
-          {/* 描述文字 */}
-          <div className="relative h-32 md:h-24">
-            <div className="absolute w-full transition-all duration-1000">
-              {[
-                {
-                  id: 'defect',
-                  content: (
-                    <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed text-base md:text-lg px-4">
+          <div className="max-w-6xl mx-auto px-4 text-center relative">
+            {/* 玻璃态效果卡片 */}
+            <div className="absolute inset-0 -z-10 bg-white/50 backdrop-blur-sm rounded-3xl" />
+
+            {/* 标签 */}
+            <div className="inline-block bg-gradient-to-r from-blue-500/10 to-blue-600/10 backdrop-blur-sm px-6 py-2 rounded-full mb-6 border border-blue-200/20">
+              <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent font-semibold">
+                智能物业管理的革新者
+              </span>
+            </div>
+
+            {/* 主标题和描述文字 */}
+            <h1 className="relative h-40 md:h-32"> {/* 移动端增加高度 */}
+              <div className={`absolute w-full transition-all duration-1000 ${
+                currentSlide === 0 
+                  ? 'opacity-100 transform translate-y-0' 
+                  : 'opacity-0 transform translate-y-8'
+              }`}>
+                <div className="text-2xl md:text-4xl font-bold mb-2 md:mb-3 opacity-80">利用AI技术</div>
+                <div className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent mb-4 md:mb-6">
+                  全面评估建筑设施缺陷
+                </div>
+              </div>
+              <div className={`absolute w-full transition-all duration-1000 ${
+                currentSlide === 1 
+                  ? 'opacity-100 transform translate-y-0' 
+                  : 'opacity-0 transform translate-y-8'
+              }`}>
+                <div className="text-2xl md:text-4xl font-bold mb-2 md:mb-3 opacity-80">智能工单调度引擎</div>
+                <div className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent mb-4 md:mb-6">
+                让物业作业更精准更高效
+                </div>
+              </div>
+            </h1>
+
+            {/* 描述文字 */}
+            <div className="relative h-32 md:h-24"> {/* 移动端增加高度 */}
+              <div className="absolute w-full transition-all duration-1000">
+                {[
+                  {
+                    id: 'defect',
+                    content: (
+                      <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed text-base md:text-lg px-4">
                         我们的专家团队利用先进的人工智能技术，为物业管理带来革命性变革，
                         <br />
                         <span className="text-blue-600 font-semibold">全面的缺陷数据</span>成为评估及改进服务的得力助手。
@@ -128,9 +174,10 @@ export default function Home() {
                     id: 'workorder',
                     content: (
                       <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed text-base md:text-lg px-4">
-                        基于深度学习的智能工单调度引擎，通过
-                        <span className="text-blue-600 font-semibold">大数据分析和AI算法</span>
-                        ，实现工单智能分配、实时监控和质量评估，让物业服务更高效、更智能。
+                        实现工单的自动生成、实时监控和质量管理，<br />
+                        
+                        <span className="text-blue-600 font-semibold">并根据缺陷数据自动优化</span>
+                       
                       </p>
                     )
                   }
@@ -146,134 +193,194 @@ export default function Home() {
                     {item.content}
                   </div>
                 ))}
+              </div>
             </div>
-          </div>
 
-          {/* 切换指示器 */}
-          <div className="flex justify-center gap-2 mt-4">
-            {[0, 1].map((index) => (
-              <button
-                key={index}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  currentSlide === index 
-                    ? 'bg-blue-600 w-6' 
-                    : 'bg-gray-300'
-                }`}
-                onClick={() => setCurrentSlide(index)}
+            {/* 切换指示器 */}
+            <div className="flex justify-center gap-2 mt-8">
+              <div className={`w-2 h-2 rounded-full transition-all duration-300 
+                ${currentSlide === 0 ? 'w-6 bg-blue-600' : 'bg-gray-300'} cursor-pointer`} 
+                onClick={() => setCurrentSlide(0)}
               />
-            ))}
-          </div>
+              <div className={`w-2 h-2 rounded-full transition-all duration-300 
+                ${currentSlide === 1 ? 'w-6 bg-blue-600' : 'bg-gray-300'} cursor-pointer`}
+                onClick={() => setCurrentSlide(1)}
+              />
+            </div>
 
-          {/* 按钮组 */}
-          <div className="flex justify-center gap-6 mt-12">
-            <button 
-              onClick={() => scrollToSection('ai-platform')}
-              className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl flex items-center gap-2 overflow-hidden transition-all hover:shadow-lg hover:shadow-blue-500/30"
-            >
-              <span className="relative z-10">探索AI缺陷识别</span>
-              <svg className="w-5 h-5 relative z-10 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-            </button>
-            <button 
-              onClick={() => openModal('立即咨询')}
-              className="group px-8 py-4 border border-gray-200 hover:border-blue-200 rounded-xl flex items-center gap-2 transition-all hover:shadow-lg"
-            >
-              立即咨询
-              <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </button>
-          </div>
-        </div>
+            {/* 按钮组容器 */}
+            <div className="relative h-28 md:h-24 mt-12">
+              <div className={`absolute w-full transition-all duration-1000 ${
+                currentSlide === 0 
+                  ? 'opacity-100 transform translate-y-0' 
+                  : 'opacity-0 transform translate-y-8'
+              }`}>
+                <div className="flex justify-center gap-6">
+                  <button 
+                    onClick={() => scrollToSection('ai-platform')}
+                    className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl flex items-center gap-2 overflow-hidden transition-all hover:shadow-lg hover:shadow-blue-500/30"
+                  >
+                    <span className="relative z-10">探索AI缺陷识别</span>
+                    <svg className="w-5 h-5 relative z-10 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </button>
+                  <button 
+                    onClick={() => openModal('立即咨询')}
+                    className="group px-8 py-4 border border-gray-200 hover:border-blue-200 rounded-xl flex items-center gap-2 transition-all hover:shadow-lg"
+                  >
+                    立即咨询
+                    <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
 
-        {/* 数据统计 */}
-        <section className="w-full bg-gradient-to-b from-gray-50 via-white to-gray-50 py-20">
-          <FadeInSection className="max-w-6xl mx-auto px-4">
-            <div className="grid grid-cols-3 gap-8">
-              <div className="text-center p-8 bg-white rounded-lg shadow-sm">
-                <div className="text-4xl font-bold text-blue-600 mb-2">95%+</div>
-                <div className="text-gray-600">识别准确率</div>
-              </div>
-              <div className="text-center p-8 bg-white rounded-lg shadow-sm">
-                <div className="text-4xl font-bold text-blue-600 mb-2">400%+</div>
-                <div className="text-gray-600">工效提升</div>
-              </div>
-              <div className="text-center p-8 bg-white rounded-lg shadow-sm">
-                <div className="text-4xl font-bold text-blue-600 mb-2">30+</div>
-                <div className="text-gray-600">缺陷类型</div>
+              <div className={`absolute w-full transition-all duration-1000 ${
+                currentSlide === 1 
+                  ? 'opacity-100 transform translate-y-0' 
+                  : 'opacity-0 transform translate-y-8'
+              }`}>
+                <div className="flex justify-center gap-6">
+                  <button 
+                    onClick={() => scrollToSection('workorder-solution')}
+                    className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl flex items-center gap-2 overflow-hidden transition-all hover:shadow-lg hover:shadow-blue-500/30"
+                  >
+                    <span className="relative z-10">探索智能工单</span>
+                    <svg className="w-5 h-5 relative z-10 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </button>
+                  <button 
+                    onClick={() => openModal('立即咨询')}
+                    className="group px-8 py-4 border border-gray-200 hover:border-blue-200 rounded-xl flex items-center gap-2 transition-all hover:shadow-lg"
+                  >
+                    立即咨询
+                    <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
-          </FadeInSection>
+          </div>
+        </section>
+
+        {/* 数据统计区块 */}
+        <section className="w-full relative py-10 md:py-12 overflow-hidden">
+          {/* 科技感背景装饰 */}
+          <div className="absolute inset-0 -z-10">
+            {/* 基础背景 */}
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50" />
+            
+            {/* 3D装饰元素 */}
+            <div className="absolute -top-1/3 left-0 w-[600px] h-[600px] bg-gradient-to-br from-blue-100/20 to-cyan-100/20 rounded-full blur-[120px] animate-pulse-slow" />
+            <div className="absolute -bottom-1/3 right-0 w-[400px] h-[400px] bg-gradient-to-br from-purple-100/20 to-blue-100/20 rounded-full blur-[100px] animate-pulse-slow" />
+          </div>
+
+          <div className="max-w-6xl mx-auto px-4">
+            {/* 数据统计内容容器 - 添加玻璃态效果 */}
+            <div className="relative backdrop-blur-[2px] rounded-2xl py-6 px-4 md:py-8 md:px-6
+              before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/60 before:to-white/30 
+              before:rounded-2xl before:-z-10">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                {/* 识别准确率 */}
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-0.5">
+                    <span className="text-3xl md:text-4xl font-bold text-blue-600">95</span>
+                    <span className="text-3xl md:text-4xl font-bold text-blue-600">%</span>
+                    <span className="text-xl md:text-2xl font-bold text-blue-600">+</span>
+                  </div>
+                  <div className="mt-1 text-sm text-gray-600">识别准确率</div>
+                </div>
+
+                {/* 工效提升 */}
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-0.5">
+                    <span className="text-3xl md:text-4xl font-bold text-blue-600">400</span>
+                    <span className="text-3xl md:text-4xl font-bold text-blue-600">%</span>
+                    <span className="text-xl md:text-2xl font-bold text-blue-600">+</span>
+                  </div>
+                  <div className="mt-1 text-sm text-gray-600">工效提升</div>
+                </div>
+
+                {/* 缺陷类型 */}
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-0.5">
+                    <span className="text-3xl md:text-4xl font-bold text-blue-600">30</span>
+                    <span className="text-xl md:text-2xl font-bold text-blue-600">+</span>
+                  </div>
+                  <div className="mt-1 text-sm text-gray-600">缺陷类型</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* 物业管理痛点 */}
         <section className="w-full bg-gradient-to-b from-gray-50 via-white to-gray-100 py-20">
           <FadeInSection className="max-w-6xl mx-auto px-4">
-            <div className="text-center mt-32 relative">
-              {/* 背景装饰 */}
-              <div className="absolute inset-0 -z-10">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[100px]" />
-                <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-purple-500/10 rounded-full blur-[80px]" />
-                <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[90px]" />
-              </div>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold">
+                物业管理的两大痛点
+              </h2>
+              <div className="w-12 h-1 bg-blue-600 mx-auto mt-4" />
+            </div>
 
-              <h2 className="text-4xl font-bold mb-4">物业管理的两大痛点</h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto mb-12 rounded-full" />
-
-              <div className="grid grid-cols-2 gap-8 max-w-5xl mx-auto">
-                {/* 痛点1 */}
-                <div className="group relative h-full">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl blur-xl transition-all duration-300 group-hover:scale-105" />
-                  <div className="relative h-full p-8 backdrop-blur-sm bg-white/80 rounded-2xl border border-white/20 shadow-lg transition-all duration-300 hover:transform hover:-translate-y-1">
-                    <div className="flex flex-col items-center">
-                      <div className="w-20 h-20 relative mb-6">
-                        {/* 外圈动态光环 */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse opacity-20" />
-                        {/* 内圈图标背景 */}
-                        <div className="absolute inset-2 bg-gradient-to-br from-blue-100 to-blue-50 rounded-full flex items-center justify-center">
-                          <svg className="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
-                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" 
-                            />
-                          </svg>
-                        </div>
+            <div className="grid grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {/* 痛点1 */}
+              <div className="group relative h-full">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl blur-xl transition-all duration-300 group-hover:scale-105" />
+                <div className="relative h-full p-8 backdrop-blur-sm bg-white/80 rounded-2xl border border-white/20 shadow-lg transition-all duration-300 hover:transform hover:-translate-y-1">
+                  <div className="flex flex-col items-center">
+                    <div className="w-20 h-20 relative mb-6">
+                      {/* 外圈动态光环 */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse opacity-20" />
+                      {/* 内圈图标背景 */}
+                      <div className="absolute inset-2 bg-gradient-to-br from-blue-100 to-blue-50 rounded-full flex items-center justify-center">
+                        <svg className="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" 
+                          />
+                        </svg>
                       </div>
-                      <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                        信息不透明，监管难度高
-                      </h3>
-                      <p className="text-gray-600 leading-relaxed">
-                        传统物业管理模式下，信息收集和传递存在滞后性，
-                        管理层难以及时掌握现场情况，影响决策效率和服务质量。
-                      </p>
                     </div>
+                    <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                      信息不透明，监管难度高
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      传统物业管理模式下，信息收集和传递存在滞后性，
+                      管理层难以及时掌握现场情况，影响决策效率和服务质量。
+                    </p>
                   </div>
                 </div>
+              </div>
 
-                {/* 痛点2 */}
-                <div className="group relative h-full">
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-2xl blur-xl transition-all duration-300 group-hover:scale-105" />
-                  <div className="relative h-full p-8 backdrop-blur-sm bg-white/80 rounded-2xl border border-white/20 shadow-lg transition-all duration-300 hover:transform hover:-translate-y-1">
-                    <div className="flex flex-col items-center">
-                      <div className="w-20 h-20 relative mb-6">
-                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full animate-pulse opacity-20" />
-                        <div className="absolute inset-2 bg-gradient-to-br from-cyan-100 to-cyan-50 rounded-full flex items-center justify-center">
-                          <svg className="w-10 h-10 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
-                              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" 
-                              />
-                          </svg>
-                        </div>
+              {/* 痛点2 */}
+              <div className="group relative h-full">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-2xl blur-xl transition-all duration-300 group-hover:scale-105" />
+                <div className="relative h-full p-8 backdrop-blur-sm bg-white/80 rounded-2xl border border-white/20 shadow-lg transition-all duration-300 hover:transform hover:-translate-y-1">
+                  <div className="flex flex-col items-center">
+                    <div className="w-20 h-20 relative mb-6">
+                      <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full animate-pulse opacity-20" />
+                      <div className="absolute inset-2 bg-gradient-to-br from-cyan-100 to-cyan-50 rounded-full flex items-center justify-center">
+                        <svg className="w-10 h-10 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" 
+                            />
+                        </svg>
                       </div>
-                      <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
-                        服务不专业，管理效率低
-                      </h3>
-                      <p className="text-gray-600 leading-relaxed">
-                        物业企业服务缺乏专业性和精准性，人工巡检效率低下，
-                        无法及时发现和处理问题，导致管理效率和服务质量难以提升。
-                      </p>
                     </div>
+                    <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
+                      服务不专业，管理效率低
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      物业企业服务缺乏专业性和精准性，人工巡检效率低下，
+                      无法及时发现和处理问题，导致管理效率和服务质量难以提升。
+                    </p>
                   </div>
                 </div>
               </div>
@@ -304,7 +411,8 @@ export default function Home() {
               </h3>
             </div>
 
-            <div className="grid grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* AI平台特性展示 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto px-4 md:px-8">
               {[
                 {
                   title: "Web GIS 缺陷可视化分析",
@@ -336,61 +444,48 @@ export default function Home() {
                   desc: "全面、详实的照片存证，包含每一项识别出的缺陷、位置及设施设备信息。",
                   image: "/6.jpg"
                 }
-              ].map((item, index) => (
-                <FadeInStagger key={index} index={index}>
-                  <div className="group relative bg-gradient-to-br from-blue-900/5 to-purple-900/5 rounded-2xl overflow-hidden backdrop-blur-sm border border-white/10">
-                    {/* 科技感装饰 */}
-                    <div className="absolute inset-0">
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      {/* 扫描线动画 */}
-                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/10 to-transparent translate-y-[-100%] group-hover:translate-y-[100%] transition-transform duration-2000 ease-in-out" />
-                      {/* 边框动画 */}
-                      <div className="absolute top-0 left-0 w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
-                      <div className="absolute bottom-0 right-0 w-20 h-1 bg-gradient-to-r from-purple-500 to-blue-500 transform translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
-                    </div>
+              ].map((feature, index) => (
+                <div key={index} className="group relative bg-gradient-to-br from-blue-900/5 to-purple-900/5 rounded-2xl overflow-hidden backdrop-blur-sm border border-white/10">
+                  {/* 科技感装饰 */}
+                  <div className="absolute inset-0">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    {/* 扫描线动画 */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/10 to-transparent translate-y-[-100%] group-hover:translate-y-[100%] transition-transform duration-2000 ease-in-out" />
+        </div>
 
-                    {/* 图片容器 */}
-                    <div 
-                      className="aspect-[4/3] overflow-hidden cursor-zoom-in relative"
-                      onClick={() => setSelectedImage(item.image)}
+                  {/* 图片容器 */}
+                  <div 
+                    className="aspect-[4/3] overflow-hidden cursor-zoom-in relative"
+                    onClick={() => setSelectedImage(feature.image)}
         >
           <Image
-                        src={item.image}
-                        alt={item.title}
-                        width={600}
-                        height={450}
-                        className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
-                      />
-                      {/* 科技感遮罩 */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      
-                      {/* 点击查看提示 */}
-                      <div className="absolute bottom-4 right-4 flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span className="text-sm font-medium">查看详情</span>
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                        </svg>
-                      </div>
-
-                      {/* 扫描线效果 */}
-                      <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                        <div className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent top-0 animate-scan" />
-                      </div>
-                    </div>
-
-                    {/* 内容区域 */}
-                    <div className="relative p-6 bg-gradient-to-b from-transparent to-white/5">
-                      <div className="relative z-10">
-                        <h4 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
-                          {item.title}
-                        </h4>
-                        <p className="text-gray-600 text-sm leading-relaxed">
-                          {item.desc}
-                        </p>
-                      </div>
+                      src={feature.image}
+                      alt={feature.title}
+                      width={600}
+                      height={450}
+                      className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+                    />
+                    {/* 点击查看提示 */}
+                    <div className="absolute bottom-4 right-4 flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span className="text-sm font-medium">查看详情</span>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                      </svg>
                     </div>
                   </div>
-                </FadeInStagger>
+
+                  {/* 标题和描述 */}
+                  <div className="relative p-6 bg-gradient-to-b from-transparent to-white/5">
+                    <div className="relative z-10">
+                      <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
+                        {feature.title}
+                      </h3>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        {feature.desc}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -433,57 +528,64 @@ export default function Home() {
               </div>
 
               {/* 视觉缺陷评估流程 */}
-              <div className="relative py-20 px-4">
-                <div className="text-center mb-16">
-                  <h4 className="text-2xl font-bold mb-4">视觉缺陷评估流程</h4>
-                  <p className="text-gray-600">通过先进的AI技术，全面无死角发现物业缺陷</p>
-                </div>
+              <section className="w-full py-20">
+                <div className="max-w-6xl mx-auto px-4">
+                  {/* 标题 */}
+                  <div className="text-center mb-16">
+                    <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4">视觉缺陷评估流程</h2>
+                    <p className="text-sm md:text-base text-gray-600 px-4">
+                      通过先进的AI技术，全面无死角发现物业缺陷
+                    </p>
+                  </div>
 
-                <div className="max-w-6xl mx-auto">
-                  <div className="relative flex justify-between items-start">
-                    {/* 连接线 */}
-                    <div className="absolute top-24 left-0 w-full h-1 bg-gradient-to-r from-blue-200 via-purple-200 to-cyan-200 -z-10" />
-                    
-                    {/* 步骤1-3 */}
+                  {/* 流程步骤 */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                    {/* 连接线 - 只在平板和桌面端显示 */}
+                    <div className="hidden md:block absolute left-0 right-0 top-[45%] h-[2px]">
+                      <div className="relative max-w-6xl mx-auto">
+                        <div className="absolute left-[25%] right-[25%] h-full bg-blue-200" />
+                      </div>
+                    </div>
+
                     {[
                       {
+                        number: "1",
                         title: "360°摄像头拍摄小区所有空间",
-                        desc: "同时覆盖拍摄者前后左右天地六个面，无主观遗漏。以10万平方米建筑面积小区为例，拍摄大约需要8小时。",
-                        gradient: "from-blue-500 to-purple-500",
-                        textGradient: "from-blue-600 to-purple-600"
+                        desc: "同时覆盖拍摄者前后左右天地六个面，无主观遗漏。以10万平方米建筑面积小区为例，拍摄大约需要8小时。"
                       },
                       {
+                        number: "2",
                         title: "AI模型识别缺陷",
-                        desc: "根据预先训练的物业管理保洁、秩序、绿化缺陷特征，自动识别视频中的缺陷及相关设施设备、位置。",
-                        gradient: "from-purple-500 to-blue-500",
-                        textGradient: "from-purple-600 to-blue-600"
+                        desc: "根据预先训练的物业管理保洁、秩序、绿化缺陷特征，自动识别视频中的缺陷及相关设施设备、位置。"
                       },
                       {
+                        number: "3",
                         title: "输出缺陷报告",
-                        desc: "包含每一项识别出的缺陷、位置、设施设备及照片存证，供服务评估和改进分析。一个20年的小区平均发现1500处缺陷。",
-                        gradient: "from-blue-500 to-cyan-500",
-                        textGradient: "from-blue-600 to-cyan-600"
+                        desc: "包含每一项识别出的缺陷、位置、设施设备及照片存证，供服务评估和改进分析。一个20年的小区平均发现1500处缺陷。"
                       }
                     ].map((step, index) => (
-                      <div key={index} className="w-[32%] group">
-                        <div className="relative">
-                          <div className={`w-12 h-12 mx-auto mb-8 bg-gradient-to-r ${step.gradient} rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg`}>
-                            {index + 1}
-                          </div>
-                          <div className="p-6 bg-white/60 backdrop-blur-sm rounded-xl border border-blue-100/20 shadow-lg transition-all duration-300 group-hover:translate-y-[-4px]">
-                            <h5 className={`text-xl font-bold mb-4 bg-gradient-to-r ${step.textGradient} bg-clip-text text-transparent`}>
-                              {step.title}
-                            </h5>
-                            <p className="text-gray-600 leading-relaxed">
-                              {step.desc}
-                            </p>
-                          </div>
+                      <div key={index} className="relative">
+                        {/* 步骤数字 */}
+                        <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-blue-600 text-white 
+                          text-xl md:text-2xl font-bold flex items-center justify-center 
+                          mb-4 md:mb-6 mx-auto relative z-10">
+                          {step.number}
+                        </div>
+
+                        {/* 内容 */}
+                        <div className="text-center bg-white rounded-xl p-6 md:p-8 shadow-lg">
+                          <h3 className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-gray-900">
+                            {step.title}
+                          </h3>
+                          <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+                            {step.desc}
+                          </p>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
-              </div>
+              </section>
             </div>
           </FadeInSection>
 
@@ -622,277 +724,315 @@ export default function Home() {
               </div>
             </div>
 
-            {/* 工单流程图 */}
-            <div className="mt-24">
-              <div className="text-center mb-12">
-                <h3 className="text-2xl font-bold mb-4">智能生成工单</h3>
-                <p className="text-gray-600 mb-6">
-                  通过工单平台，体验从缺陷、工单、质检的全数字化运营管理流程
-                </p>
-                <div className="w-20 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 mx-auto rounded-full" />
-              </div>
+            {/* 智能生成工单部分 */}
+            <section className="w-full py-20">
+              <div className="max-w-6xl mx-auto px-4">
+                <div className="text-center mb-12">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4">智能生成工单</h2>
+                  <p className="text-sm md:text-base text-gray-600 px-4">
+                    基于AI智能分析，实现工单全生命周期的自动化管理和效率提升
+                  </p>
+                </div>
 
-              <div className="relative max-w-6xl mx-auto px-8">
-                {/* 连接线 */}
-                <div className="absolute top-[120px] left-[100px] right-[100px] h-2">
-                  <div className="relative w-full h-full">
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-200 via-blue-300 to-cyan-200 rounded-full" />
-                    {/* 装饰点 */}
-                    {[0, 1, 2, 3, 4].map((i) => (
-                      <div 
-                        key={i}
-                        className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full border-2 border-blue-500"
-                        style={{ left: `${i * 25}%` }}
-                      />
+                {/* 工单流程图标 */}
+                <div className="relative">
+                  {/* 连接线 - 仅在平板和桌面端显示 */}
+                  <div className="hidden md:block absolute top-[88px] left-0 right-0 h-[2px] bg-blue-200" />
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-6 lg:gap-4">
+                    {[
+                      {
+                        step: 1,
+                        icon: (
+                          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                          </svg>
+                        ),
+                        title: "缺陷清单",
+                        desc: "通过AI技术自动识别并归纳记录各类设施设备缺陷"
+                      },
+                      {
+                        step: 2,
+                        icon: (
+                          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        ),
+                        title: "生成作业日历",
+                        desc: "根据缺陷类型和优先级，自动生成作业日历"
+                      },
+                      {
+                        step: 3,
+                        icon: (
+                          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">image.png
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                          </svg>
+                        ),
+                        title: "创建工单",
+                        desc: "快速生成工单，自动分配至相关团队，确保高效执行"
+                      },
+                      {
+                        step: 4,
+                        icon: (
+                          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                          </svg>
+                        ),
+                        title: "质检审核",
+                        desc: "完成作业后进行质检审核，确保所有问题得到解决"
+                      },
+                      {
+                        step: 5,
+                        icon: (
+                          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                          </svg>
+                        ),
+                        title: "优化提效",
+                        desc: "AI动态优化工单频次、流程及人力配置，提升作业效率"
+                      }
+                    ].map((item, index) => (
+                      <div key={index} 
+                        className="relative text-center p-3 md:p-4 lg:p-6"
+                      >
+                        {/* 步骤数字 - 移动端显示 */}
+                        <div className="md:hidden absolute -top-4 left-1/2 -translate-x-1/2 
+                          w-8 h-8 rounded-full bg-blue-600 text-white 
+                          flex items-center justify-center text-sm font-medium">
+                          {item.step}
+                        </div>
+                        
+                        {/* 图标容器 */}
+                        <div 
+                          className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 mx-auto 
+                            bg-gradient-to-br from-blue-500 to-blue-600 
+                            rounded-2xl flex items-center justify-center mb-4 
+                            shadow-lg shadow-blue-500/20 relative z-10"
+                        >
+                          {item.icon}
+                        </div>
+
+                        {/* 标题 */}
+                        <h3 className="text-sm md:text-base lg:text-lg font-semibold 
+                          text-gray-900 mb-1 md:mb-2">
+                          {item.title}
+                        </h3>
+
+                        {/* 描述 */}
+                        <p className="text-xs md:text-sm text-gray-600">
+                          {item.desc}
+                        </p>
+
+                        {/* 箭头 - 移动端显示 */}
+                        {index < 4 && (
+                          <div className="md:hidden absolute -bottom-6 left-1/2 -translate-x-1/2">
+                            <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
                     ))}
                   </div>
                 </div>
-                
-                {/* 流程步骤 */}
-                <div className="grid grid-cols-5 gap-6">
-                  {[
-                    {
-                      icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4",
-                      title: "缺陷清单",
-                      desc: "利用AI技术自动识别并归纳记录各类设施设备缺陷"
-                    },
-                    {
-                      icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
-                      title: "生成作业日历",
-                      desc: "根据缺陷类型和优先级，自动生成作业日历"
-                    },
-                    {
-                      icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4",
-                      title: "创建工单",
-                      desc: "快速生成工单，自动分配至相关团队，确保高效执行"
-                    },
-                    {
-                      icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
-                      title: "质检审核",
-                      desc: "完成作业后进行质检审核，确保所有问题得到解决"
-                    },
-                    {
-                      icon: "M13 10V3L4 14h7v7l9-11h-7z",
-                      title: "优化提效",
-                      desc: "AI动态优化工单频次、流程及人力配置，提升作业效率"
-                    }
-                  ].map((item, index) => (
-                    <FadeInStagger key={index} index={index}>
-                      <div className="group relative pt-8">
-                        {/* 序号标识 */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-medium">
-                          {index + 1}
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl transition-all duration-300 group-hover:scale-105" />
-                        <div className="relative p-6 min-h-[240px] flex flex-col">
-                          <div className="w-14 h-14 mb-6 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                            <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={item.icon} />
-                            </svg>
-                          </div>
-                          <h3 className="text-xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent mb-3">
-                            {item.title}
-                          </h3>
-                          <p className="text-gray-600 text-sm leading-relaxed flex-1">{item.desc}</p>
-                          {/* 底部装饰线 */}
-                          <div className="absolute bottom-0 left-4 right-4 h-1 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full" />
-                        </div>
-                      </div>
-                    </FadeInStagger>
-                  ))}
-                </div>
               </div>
-            </div>
+            </section>
           </div>
         </section>
 
         {/* 我们的核心优势 */}
-        <section className="w-full bg-gradient-to-b from-gray-50 via-white to-gray-100 py-20">
-          {/* 背景装饰 */}
-          <div className="absolute inset-0 -z-10 overflow-hidden">
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px]" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[100px]" />
-          </div>
+        <section className="w-full py-20">
+          <div className="max-w-6xl mx-auto px-4">
+            {/* 标题 */}
+            <div className="text-center mb-16">
+              <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4">我们的核心优势</h2>
+              <p className="text-sm md:text-base text-gray-600 px-4">
+                作为物业管理领域的创新者，我们的产品在AI技术应用上具有显著优势，以下是我们的核心技术能力展示：
+              </p>
+            </div>
 
-          {/* 标题 */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-gray-900">我们的核心优势</h2>
-            <p className="text-gray-600 text-lg mb-8">
-              作为物业管理领域的创新者，我们的产品在AI技术应用上具有显著优势，以下是我们的核心技术能力展示：
-            </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full" />
-          </div>
-
-          {/* 核心优势展示 */}
-          <div className="grid grid-cols-3 gap-8 max-w-6xl mx-auto px-8">
-            {[
-              {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253" />
-                  </svg>
-                ),
-                title: "行业知识丰富",
-                desc: "创始人团队在IT和物业管理领域各十余年从业经验，对物业管理业务有深刻认识。"
-              },
-              {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
-                ),
-                title: "从客户需求和痛点出发",
-                desc: "从业务会无法获取数据和有效收管理服务，物业管理人治两个核心痛点出发，设计整个平台应用架构。"
-              },
-              {
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                ),
-                title: "技术应用先进",
-                desc: "深入全面应用领先的人工智能、机器视觉技术，为物业管理带来革命性变革，提供更智能高效的解决方案。"
-              }
-            ].map((item, index) => (
-              <FadeInStagger key={index} index={index}>
-                <div className="group relative bg-white/80 backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 hover:bg-white hover:shadow-xl hover:shadow-blue-500/5">
+            {/* 优势列表 */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+              {[
+                {
+                  icon: (
+                    <svg className="w-8 h-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  ),
+                  title: "行业知识丰富",
+                  desc: "创始人团队在IT和物业管理领域各十余年从业经验，对物业管理行业有深刻理解"
+                },
+                {
+                  icon: (
+                    <svg className="w-8 h-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                  ),
+                  title: "从客户需求和痛点出发",
+                  desc: "从业务会无法获取数据和有效收管理服务质量的痛点出发，提供完整解决方案"
+                },
+                {
+                  icon: (
+                    <svg className="w-8 h-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  ),
+                  title: "技术应用先进",
+                  desc: "深入全面应用领先的人工智能、机器视觉技术，为物业管理行业带来创新解决方案"
+                }
+              ].map((item, index) => (
+                <div 
+                  key={index} 
+                  className="text-center p-6 md:p-8 bg-white rounded-xl md:rounded-2xl shadow-lg"
+                >
                   {/* 图标 */}
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white mb-6 transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg">
-                    <div className="relative">
-                      {item.icon}
-                      <div className="absolute inset-0 rounded-2xl bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
-                    </div>
+                  <div 
+                    className="w-14 h-14 md:w-16 md:h-16 mx-auto mb-4 md:mb-6 bg-blue-50 rounded-xl 
+                      flex items-center justify-center"
+                  >
+                    {item.icon}
                   </div>
                   
-                  {/* 标题和描述 */}
-                  <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                  {/* 标题 */}
+                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-4">
                     {item.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  
+                  {/* 描述 */}
+                  <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                     {item.desc}
                   </p>
-                  
-                  {/* 底部装饰线 */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 overflow-hidden rounded-b-2xl">
-                    <div className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                  </div>
                 </div>
-              </FadeInStagger>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
 
         {/* 睿单如何为您服务 */}
-        <section className="w-full bg-gradient-to-b from-gray-100 via-white to-gray-50 py-20">
-          {/* 背景装饰 */}
-          <div className="absolute inset-0 -z-10 overflow-hidden">
-            <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-100/20 rounded-full mix-blend-multiply blur-3xl" />
-            <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-purple-100/20 rounded-full mix-blend-multiply blur-3xl" />
-          </div>
-
-          {/* 标题 */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">睿单如何为您服务</h2>
-            <p className="text-gray-600 text-lg mb-8">
-              了解我们如何通过智能化手段优化您的物业管理流程，提升整体服务质量。
-            </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full" />
-          </div>
-
-          {/* 服务步骤 */}
-          <div className="relative flex justify-between items-start max-w-6xl mx-auto px-8">
-            {/* 连接线 */}
-            <div className="absolute top-[88px] left-[180px] right-[180px] h-[2px]">
-              <div className="relative w-full h-full">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 via-blue-600/30 to-blue-500/30" />
-                {/* 装饰点 */}
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full shadow-md" />
-                <div className="absolute left-1/2 top-1/2 -translate-y-1/2 w-3 h-3 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full shadow-md" />
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full shadow-md" />
-              </div>
+        <section className="w-full py-20">
+          <div className="max-w-6xl mx-auto px-4">
+            {/* 标题 */}
+            <div className="text-center mb-16">
+              <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4">睿单如何为您服务</h2>
+              <p className="text-sm md:text-base text-gray-600 px-4">
+                了解我们如何通过智能化手段优化您的物业管理流程，提升整体服务质量。
+              </p>
             </div>
 
-            {[
-              {
-                step: "STEP 1",
-                title: "添加物业信息",
-                desc: "输入您的物业信息，并留下联系方式。",
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
-                )
-              },
-              {
-                step: "STEP 2",
-                title: "线上签约",
-                desc: "线上签订服务合同，约定拍摄时间。",
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                )
-              },
-              {
-                step: "STEP 3",
-                title: "输出报告",
-                desc: "完成拍摄，数据处理，输出缺陷详情报告。",
-                icon: (
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                )
-              }
-            ].map((item, index) => (
-              <FadeInStagger key={index} index={index}>
-                <div className="group relative w-[300px]">
+            {/* 服务步骤 */}
+            <div className="relative flex flex-col md:flex-row justify-between items-center md:items-start max-w-4xl mx-auto">
+              {/* 连接线 - 仅在桌面端显示 */}
+              <div className="hidden md:block absolute top-24 left-[15%] right-[15%] h-[2px] bg-blue-200">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-transparent" />
+              </div>
+
+              {[
+                {
+                  step: "STEP 1",
+                  title: "添加物业信息",
+                  desc: "输入您的物业信息，并留下联系方式。",
+                  icon: (
+                    <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                  ),
+                },
+                {
+                  step: "STEP 2",
+                  title: "线上签约",
+                  desc: "线上签订服务合同，约定拍摄时间。",
+                  icon: (
+                    <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  ),
+                },
+                {
+                  step: "STEP 3",
+                  title: "输出报告",
+                  desc: "完成拍摄，数据处理，输出缺陷详情报告。",
+                  icon: (
+                    <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  ),
+                }
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="relative w-full md:w-1/3 text-center px-4 mb-16 md:mb-0 flex flex-col items-center"
+                >
                   {/* 步骤图标 */}
-                  <div className="relative mb-8">
-                    <div className="w-20 h-20 mx-auto relative">
-                      {/* 图标容器 */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg flex items-center justify-center text-white transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-blue-500/25">
-                        {item.icon}
-                        {/* 光晕效果 */}
-                        <div className="absolute inset-0 rounded-2xl bg-blue-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
-                      </div>
-                    </div>
+                  <div
+                    className="w-14 h-14 md:w-16 md:h-16 mx-auto mb-4 md:mb-6 bg-blue-600 rounded-2xl flex items-center justify-center"
+                  >
+                    {item.icon}
+                  </div>
+
+                  {/* 内容容器 */}
+                  <div className="min-h-[100px] flex flex-col">
+                    {/* 标题 */}
+                    <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-gray-900">
+                      {item.title}
+                    </h3>
+
+                    {/* 描述 */}
+                    <p className="text-sm md:text-base text-gray-600">
+                      {item.desc}
+                    </p>
                   </div>
 
                   {/* 步骤标识 */}
-                  <div className="text-center mb-4">
-                    <span className="inline-block px-4 py-1.5 bg-blue-500 text-white rounded-full text-sm font-medium shadow-sm transform transition-transform duration-300 group-hover:scale-105 group-hover:shadow-md">
-                      {item.step}
-                    </span>
+                  <div
+                    className="absolute -bottom-8 md:-bottom-10 left-1/2 -translate-x-1/2 px-4 py-1 bg-blue-600 text-white text-sm rounded-full"
+                  >
+                    {item.step}
                   </div>
 
-                  {/* 内容 */}
-                  <div className="text-center relative p-6 rounded-xl bg-white/60 backdrop-blur-sm transition-all duration-300 group-hover:bg-white group-hover:shadow-xl group-hover:shadow-blue-500/5">
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600">
-                      {item.desc}
-                    </p>
-                    
-                    {/* 装饰边框 */}
-                    <div className="absolute inset-0 rounded-xl border border-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
+                  {/* 移动端箭头指示 */}
+                  {index < 2 && (
+                    <div className="md:hidden absolute -bottom-8 left-1/2 -translate-x-1/2">
+                      <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                      </svg>
+                    </div>
+                  )}
                 </div>
-              </FadeInStagger>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          {/* 添加咨询按钮 */}
-          <div className="text-center mt-16">
-            <button
-              onClick={() => openModal('立即咨询')}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/30 transition-all group"
-            >
-              立即咨询
-              <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </button>
+            {/* 咨询按钮 */}
+            <div className="text-center mt-24">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="inline-flex items-center px-6 md:px-8 py-2 md:py-3 
+                  bg-blue-600 text-white rounded-full text-base md:text-lg 
+                  font-medium hover:bg-blue-700 transition-colors"
+              >
+                立即咨询
+                <svg
+                  className="w-4 h-4 md:w-5 md:h-5 ml-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M9 5l7 7-7 7" 
+                  />
+                </svg>
+              </button>
+            </div>
+
+            {/* 确保 ContactFormModal 组件在页面中已引入和使用 */}
+            <ContactFormModal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              title="立即咨询"
+            />
           </div>
         </section>
 
@@ -978,13 +1118,13 @@ export default function Home() {
 
           {/* 标题 */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">产品报价</h2>
-            <p className="text-gray-600 text-lg">选择最适合您的解决方案</p>
+            <h2 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">产品报价</h2>
+            <p className="text-base md:text-lg text-gray-600">选择最适合您的解决方案</p>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full mt-6" />
           </div>
 
           {/* 产品列表 */}
-          <div className="grid grid-cols-4 gap-8 max-w-[1400px] mx-auto px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 max-w-[1400px] mx-auto px-4 md:px-8">
             {[
               {
                 title: "360视频人工智能巡检",
@@ -1058,38 +1198,40 @@ export default function Home() {
             ].map((plan, index) => (
               <FadeInStagger key={index} index={index}>
                 <div className="group relative transform transition-all duration-300 ease-out">
-                  <div className="relative p-8 rounded-2xl bg-white shadow-lg transition-all duration-300 
+                  <div className="relative p-4 md:p-8 rounded-xl md:rounded-2xl bg-white shadow-lg transition-all duration-300 
                     group-hover:bg-gradient-to-br group-hover:from-blue-600 group-hover:to-blue-700 
                     group-hover:text-white group-hover:scale-[1.02] group-hover:z-10 
                     group-hover:shadow-xl group-hover:shadow-blue-500/20">
                     
                     {/* 标题和价格 */}
-                    <div className="text-center mb-8">
-                      <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-white">
+                    <div className="text-center mb-6 md:mb-8">
+                      <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-gray-900 group-hover:text-white">
                         {plan.title}
                       </h3>
-                      <div className="text-sm text-gray-600 group-hover:text-blue-100 mb-4">
+                      <div className="text-xs md:text-sm text-gray-600 group-hover:text-blue-100 mb-3 md:mb-4">
                         适用于：{plan.forUsers}
                       </div>
-                      <div className="text-sm font-bold text-blue-600 group-hover:text-white">
+                      <div className="text-base md:text-lg font-bold text-blue-600 group-hover:text-white">
                         {plan.price}
                       </div>
                       {plan.priceNote && (
-                        <div className="text-sm text-gray-500 group-hover:text-blue-100 mt-1">
+                        <div className="text-xs md:text-sm text-gray-500 group-hover:text-blue-100 mt-1">
                           {plan.priceNote}
                         </div>
                       )}
                     </div>
 
                     {/* 功能列表 */}
-                    <div className="space-y-3 mb-8">
+                    <div className="space-y-2 md:space-y-3 mb-6 md:mb-8">
                       {plan.features.map((feature, i) => (
-                        <div key={i} className="flex items-start gap-3">
-                          <svg className="w-5 h-5 flex-shrink-0 mt-0.5 text-blue-500 group-hover:text-blue-200" 
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div key={i} className="flex items-start gap-2 md:gap-3">
+                          <svg 
+                            className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0 mt-0.5 text-blue-500 group-hover:text-blue-200"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                          >
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
-                          <span className="text-gray-600 group-hover:text-blue-50">
+                          <span className="text-sm md:text-base text-gray-600 group-hover:text-blue-50">
                             {feature}
                           </span>
                         </div>
@@ -1097,12 +1239,12 @@ export default function Home() {
                     </div>
 
                     {/* 底部信息 */}
-                    <div className="space-y-4">
-                      <div className="text-sm text-gray-500 group-hover:text-blue-100 pb-4 border-t border-gray-100 group-hover:border-blue-500/30">
+                    <div className="space-y-3 md:space-y-4">
+                      <div className="text-xs md:text-sm text-gray-500 group-hover:text-blue-100 pb-3 md:pb-4 border-t border-gray-100 group-hover:border-blue-500/30">
                         是否可独立采购：{plan.canPurchaseAlone}
                       </div>
                       {plan.priceDetails.length > 0 && (
-                        <div className="space-y-2 text-sm">
+                        <div className="space-y-1.5 md:space-y-2 text-xs md:text-sm">
                           {plan.priceDetails.map((detail, i) => (
                             <div key={i} className="text-gray-600 group-hover:text-blue-50">
                               • {detail}
