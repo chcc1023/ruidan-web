@@ -48,6 +48,7 @@ export default function ContactFormModal({ isOpen, onClose, title }: ContactForm
           nickName: formData.name,
           phone: formData.phone,
           leaveWord: formData.projectName, // 使用项目名称作为留言内容
+          recommendedCode: formData.referralCode, // 新增推荐码字段
         }),
       });
 

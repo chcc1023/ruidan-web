@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
@@ -13,17 +12,13 @@ module.exports = {
         }
       },
       animation: {
-        'spin-slow': 'spin 20s linear infinite',
-        'spin-reverse-slow': 'spin-reverse 15s linear infinite',
+        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       keyframes: {
         pulse: {
           '0%, 100%': { opacity: '0.2' },
           '50%': { opacity: '0.15' },
-        },
-        'spin-reverse': {
-          from: { transform: 'rotate(360deg)' },
-          to: { transform: 'rotate(0deg)' },
         },
       },
     },
