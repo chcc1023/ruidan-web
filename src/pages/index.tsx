@@ -17,6 +17,7 @@ export default function Home() {
   const [modalTitle, setModalTitle] = useState('');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // 自动切换效果
   useEffect(() => {
@@ -61,11 +62,11 @@ export default function Home() {
   return (
     <div className={`${inter.variable} min-h-screen w-full max-w-[100vw] overflow-x-hidden`}>
       {/* 导航栏 */}
-      <nav className="flex flex-wrap justify-between items-center px-4 py-3 md:py-0 md:h-16 border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+      <nav className="flex justify-between items-center px-4 py-3 md:py-0 md:h-16 border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         {/* Logo */}
         <div className="flex items-center">
         <Image
-            src="/home/virgin.png"
+            src="/virgin.png"
             alt="VIRGIN DIGITAL LEADER"
             width={160}
             height={28}
@@ -74,11 +75,27 @@ export default function Home() {
           />
         </div>
 
-        {/* 右侧菜单和按钮 */}
-        <div className="flex items-center gap-2 md:gap-6">
+        {/* 移动端菜单 - 显示主要菜单项和更多按钮 */}
+        <div className="md:hidden flex items-center">
+          <a href="/" className="text-gray-900 text-sm px-3 py-1 hover:text-blue-600 transition-colors">首页</a>
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+            className="flex items-center text-sm px-3 py-1 text-gray-600 hover:text-blue-600 transition-colors ml-1"
+          >
+            <span className="mr-1">更多</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={mobileMenuOpen ? "M19 9l-7 7-7-7" : "M9 5l7 7-7 7"} />
+            </svg>
+          </button>
+        </div>
+
+        {/* 桌面端菜单 */}
+        <div className="hidden md:flex items-center gap-2 md:gap-6">
           <div className="flex items-center gap-6">
-            <a href="/home" className="text-gray-900 text-sm hover:text-blue-600 transition-colors">首页</a>
-            <a href="/home/about" className="text-gray-600 text-sm hover:text-blue-600 transition-colors">关于我们</a>
+            <a href="/" className="text-gray-900 text-sm hover:text-blue-600 transition-colors">首页</a>
+            <a href="/research" className="text-gray-600 text-sm hover:text-blue-600 transition-colors">智研空间</a>
+            <a href="/about" className="text-gray-600 text-sm hover:text-blue-600 transition-colors">关于我们</a>
+            <a href="/partners" className="text-gray-600 text-sm hover:text-blue-600 transition-colors">官方合作伙伴</a>
           </div>
           <div className="flex items-center gap-3">
             <a 
@@ -98,6 +115,66 @@ export default function Home() {
           </div>
         </div>
       </nav>
+
+      {/* 移动端展开菜单 */}
+      <div className={`md:hidden absolute z-40 left-0 right-0 overflow-hidden transition-all duration-300 ease-in-out ${
+        mobileMenuOpen ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'
+      }`}>
+        <div className="bg-gradient-to-b from-white to-gray-50 shadow-lg border-t border-gray-100 rounded-b-xl mx-2">
+          <div className="py-3 px-5">
+            {/* 菜单项容器 */}
+            <div className="grid grid-cols-2 gap-3">
+              <a href="/research" className="flex items-center gap-2 p-3 rounded-lg hover:bg-blue-50 transition-colors group">
+                <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                  </svg>
+                </div>
+                <span className="text-gray-700 text-sm font-medium group-hover:text-blue-600 transition-colors">智研空间</span>
+              </a>
+
+              <a href="/about" className="flex items-center gap-2 p-3 rounded-lg hover:bg-blue-50 transition-colors group">
+                <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <span className="text-gray-700 text-sm font-medium group-hover:text-blue-600 transition-colors">关于我们</span>
+              </a>
+              
+              <a href="/partners" className="flex items-center gap-2 p-3 rounded-lg hover:bg-blue-50 transition-colors group">
+                <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <span className="text-gray-700 text-sm font-medium group-hover:text-blue-600 transition-colors">合作伙伴</span>
+              </a>
+              
+              <a href="https://www.ai2049.com/#/login" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 rounded-lg hover:bg-blue-50 transition-colors group">
+                <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                  </svg>
+                </div>
+                <span className="text-gray-700 text-sm font-medium group-hover:text-blue-600 transition-colors">登录</span>
+              </a>
+              
+              <button onClick={() => {
+                setMobileMenuOpen(false);
+                openModal('立即咨询');
+              }} className="flex items-center gap-2 p-3 rounded-lg hover:bg-blue-50 transition-colors group">
+                <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center group-hover:bg-blue-700 transition-colors">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+                <span className="text-gray-700 text-sm font-medium group-hover:text-blue-600 transition-colors">立即咨询</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* 主要内容区 */}
       <main>
@@ -417,32 +494,32 @@ export default function Home() {
                 {
                   title: "Web GIS 缺陷可视化分析",
                   desc: "通过Web GIS技术对小区进行建模，并对缺陷数据进行可视化分析。",
-                  image: "/home/1.jpg"
+                  image: "/1.jpg"
                 },
                 {
                   title: "视觉三维重建",
                   desc: "以先进的视觉三维重建技术，对视频中的缺陷进行定位。",
-                  image: "/home/2.jpg"
+                  image: "/2.jpg"
                 },
                 {
                   title: "AI识别缺陷",
                   desc: "利用AI预测分析，不耗时省时间，更加观察更实，没有人为倾向性。",
-                  image: "/home/3.jpg"
+                  image: "/3.jpg"
                 },
                 {
                   title: "精准作业日历",
                   desc: "基于缺陷数据，自动生成精准的作业指令日历，替代原有的固化体系作业要求。",
-                  image: "/home/4.jpg"
+                  image: "/4.jpg"
                 },
                 {
                   title: "AI质检",
                   desc: "通过人工智能大模型对作业后的照片进行缺陷识别，确保问题得到解决。",
-                  image: "/home/5.jpg"
+                  image: "/5.jpg"
                 },
                 {
                   title: "详细缺陷报告",
                   desc: "全面、详实的照片存证，包含每一项识别出的缺陷、位置及设施设备信息。",
-                  image: "/home/6.jpg"
+                  image: "/6.jpg"
                 }
               ].map((feature, index) => (
                 <div key={index} className="group relative bg-gradient-to-br from-blue-900/5 to-purple-900/5 rounded-2xl overflow-hidden backdrop-blur-sm border border-white/10">
@@ -600,22 +677,22 @@ export default function Home() {
             <div className="grid grid-cols-2 gap-12 max-w-6xl mx-auto">
               {[
                 {
-                  image: "/home/defect1.jpg",
+                  image: "/defect1.jpg",
                   title: "灭火器-缺陷",
                   desc: "地面-污渍"
                 },
                 {
-                  image: "/home/defect2.jpg",
+                  image: "/defect2.jpg",
                   title: "天花-破损、污渍、配电箱-电线裸露、消火栓-破损",
                   desc: "管井门未紧闭、污渍、占用-占用灭火"
                 },
                 {
-                  image: "/home/defect3.jpg",
+                  image: "/defect3.jpg",
                   title: "安全出口指示牌-功能失效",
                   desc: "防火门未紧闭、走廊-占用"
                 },
                 {
-                  image: "/home/defect4.jpg",
+                  image: "/defect4.jpg",
                   title: "照明灯-破损、功能失效",
                   desc: "天花-污渍、墙面-污渍、窗户-污渍、防火门-破损"
                 }
